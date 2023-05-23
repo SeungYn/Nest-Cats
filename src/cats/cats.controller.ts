@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
+import { CatRequestDto } from 'src/dto/cats.request.dto';
 
 @Controller('cats')
 export class CatsController {
@@ -8,7 +9,7 @@ export class CatsController {
   }
 
   @Post()
-  async signUp(@Body() body) {
+  async signUp(@Body() body: CatRequestDto) {
     console.log(body);
     return 'signup';
   }
