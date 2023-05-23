@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import mongoose from 'mongoose';
-import { LoggerMiddleware } from './common/logger.middleware';
 
 @Module({
   imports: [
@@ -19,8 +18,8 @@ import { LoggerMiddleware } from './common/logger.middleware';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes('*');
     // 이렇게 세팅시 몽고디비 로그가 찍힘
+    consumer.apply().forRoutes('*');
     mongoose.set('debug', true);
   }
 }

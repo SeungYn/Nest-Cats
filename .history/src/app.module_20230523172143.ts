@@ -19,8 +19,8 @@ import { LoggerMiddleware } from './common/logger.middleware';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes('*');
     // 이렇게 세팅시 몽고디비 로그가 찍힘
+    consumer.apply(LoggerMiddleware).forRoutes('*');
     mongoose.set('debug', true);
   }
 }
