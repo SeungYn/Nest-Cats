@@ -1,15 +1,14 @@
-function required(key: string, defaultValue: any | null = null) {
+function required(key: string, defaultValue: any | null = 123) {
   const value = process.env[key] || defaultValue;
 
   if (value === null) {
     throw new Error(`key ${key} is undefined`);
   }
 
-  console.log(value);
   return value;
 }
 
-export const config = {
+export const config = () => ({
   db: {
     mongodbURI: required('MONGODB_URI'),
   },
@@ -17,4 +16,4 @@ export const config = {
     port: parseInt(required('PORT')),
   },
   mode: required('MODE'),
-};
+});

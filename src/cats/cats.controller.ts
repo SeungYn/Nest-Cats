@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 
 @Controller('cats')
 export class CatsController {
@@ -8,7 +8,8 @@ export class CatsController {
   }
 
   @Post()
-  async signUp() {
+  async signUp(@Body() body) {
+    console.log(body);
     return 'signup';
   }
 

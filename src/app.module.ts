@@ -9,7 +9,10 @@ import { config } from './common/util/config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    //모듈 안에서 환경변수를 사용하려면 이렇게 해줘야함
+    ConfigModule.forRoot({
+      load: [config],
+    }),
     MongooseModule.forRoot(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -19,7 +22,7 @@ import { config } from './common/util/config';
   providers: [AppService],
 })
 export class AppModule implements NestModule {
-  private readonly isDev: boolean = config.mode === 'dev' ? true : false;
+  private readonly isDev: boolean = config().mode === 'dev' ? true : false;
 
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(LoggerMiddleware).forRoutes('*');
