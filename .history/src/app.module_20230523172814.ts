@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import mongoose from 'mongoose';
-import { LoggerMiddleware } from './common/middleware/logger.middleware';
+import { LoggerMiddleware } from './common/logger.middleware';
 
 @Module({
   imports: [
