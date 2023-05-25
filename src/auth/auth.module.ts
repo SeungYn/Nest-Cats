@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt/jwt.strategy';
 import { PassportModule } from '@nestjs/passport';
@@ -13,8 +13,9 @@ import { CatsModule } from 'src/cats/cats.module';
       secret: 'secret',
       signOptions: { expiresIn: '1y' },
     }),
-    CatsModule,
+    forwardRef(() => CatsModule),
   ],
   providers: [AuthService, JwtStrategy],
+  exports: [AuthService],
 })
 export class AuthModule {}

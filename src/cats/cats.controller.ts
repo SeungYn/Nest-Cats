@@ -3,10 +3,15 @@ import { CatRequestDto } from 'src/dto/cats.request.dto';
 import { CatsService } from './cats.service';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ReadOnlyCatDto } from 'src/dto/cat.dto';
+import { AuthService } from 'src/auth/auth.service';
+import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
 
 @Controller('cats')
 export class CatsController {
-  constructor(private readonly catsService: CatsService) {}
+  constructor(
+    private readonly catsService: CatsService,
+    private readonly authService: AuthService,
+  ) {}
 
   @ApiOperation({ summary: '회원정보' })
   @Get()
@@ -32,8 +37,8 @@ export class CatsController {
 
   @ApiOperation({ summary: '로그인' })
   @Post('login')
-  logIn() {
-    return 'login';
+  logIn(@Body() body: LoginRequestDto) {
+    return this.authService.jwtLogin(body);
   }
 
   @ApiOperation({ summary: '로그아웃' })
