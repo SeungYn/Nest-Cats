@@ -1,4 +1,8 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Cat } from './cats.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
@@ -24,6 +28,13 @@ export class CatsRepository {
 
   async findCatByEmail(email: string): Promise<Cat | null> {
     const cat = await this.catModel.findOne({ email });
+    return cat;
+  }
+
+  async findCatByIdWithoutPassword(id: string): Promise<Cat | null> {
+    //select 를 사용해서 해당 필드를 뺴고 가져올 수 있음
+    const cat = await this.catModel.findById(id).select('-password');
+
     return cat;
   }
 }
