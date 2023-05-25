@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { config } from './common/util/config';
 import { CatsModule } from './cats/cats.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { CatsModule } from './cats/cats.module';
       useUnifiedTopology: true,
     }),
     CatsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
