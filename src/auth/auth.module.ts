@@ -3,6 +3,8 @@ import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt/jwt.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
+import { CatsRepository } from 'src/cats/cats.repository';
+import { CatsModule } from 'src/cats/cats.module';
 
 @Module({
   imports: [
@@ -11,6 +13,7 @@ import { JwtModule } from '@nestjs/jwt';
       secret: 'secret',
       signOptions: { expiresIn: '1y' },
     }),
+    CatsModule,
   ],
   providers: [AuthService, JwtStrategy],
 })
