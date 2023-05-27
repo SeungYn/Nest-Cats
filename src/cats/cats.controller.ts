@@ -19,6 +19,7 @@ import { CurrentUser } from 'src/common/decorators/user.decorator';
 import config from 'src/common/util/config';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from 'src/common/util/multer.options';
+import { Cat } from './cats.schema';
 
 @Controller('cats')
 export class CatsController {
@@ -66,8 +67,11 @@ export class CatsController {
   @ApiOperation({ summary: '이미지 업로드' })
   @UseInterceptors(FilesInterceptor('image', 10, multerOptions('cats')))
   @Post('upload')
-  uploadCatImg(@UploadedFiles() files: Array<Express.Multer.File>) {
+  uploadCatImg(
+    @UploadedFiles() files: Array<Express.Multer.File>,
+    @CurrentUser() cat: Cat,
+  ) {
     console.log(files);
-    return 'uploadImg';
+    return { image: `http://localhost:8000/media/cats/${files[0].filename}` };
   }
 }
