@@ -10,22 +10,17 @@ import config from 'src/common/util/config';
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt', session: false }),
-    // JwtModule.registerAsync({
-    //   useFactory: async (configService: ConfigService) => {
-    //     console.log(config().jwt.secret);
-    //     return {
-    //       secret: config().jwt.secret, //config().jwt.secret,
-    //       signOptions: { expiresIn: configService.get('jwt.expiresIn') }, //config().jwt.expiresIn },
-    //     };
-    //   },
-    //   inject: [ConfigService],
-    // }),
-    JwtModule.register({
-      secret: config().jwt.secret,
-      signOptions: {
-        expiresIn: config().jwt.expiresIn as number,
+    JwtModule.registerAsync({
+      useFactory: async (configService: ConfigService) => {
+        console.log(config().jwt.secret);
+        return {
+          secret: config().jwt.secret, //config().jwt.secret,
+          signOptions: { expiresIn: configService.get('jwt.expiresIn') }, //config().jwt.expiresIn },
+        };
       },
+      inject: [ConfigService],
     }),
+
     forwardRef(() => CatsModule),
   ],
   providers: [AuthService, JwtStrategy],
