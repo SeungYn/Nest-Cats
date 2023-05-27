@@ -3,6 +3,7 @@ import { CatsRepository } from 'src/cats/cats.repository';
 import { LoginRequestDto } from './dto/login.request.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import config from 'src/common/util/config';
 
 @Injectable()
 export class AuthService {
@@ -32,7 +33,9 @@ export class AuthService {
     // nest/jwt에 있는 api를 사용해서 jwt를 만들어야함
 
     const payload = { email: email, sub: cat.id };
-
-    return { token: this.jwtService.sign(payload) };
+    //, { secret: config().jwt.secret }
+    return {
+      token: this.jwtService.sign(payload),
+    };
   }
 }

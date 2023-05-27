@@ -7,6 +7,7 @@ import { AuthService } from 'src/auth/auth.service';
 import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
+import config from 'src/common/util/config';
 
 @Controller('cats')
 export class CatsController {
@@ -41,6 +42,7 @@ export class CatsController {
   @ApiOperation({ summary: '로그인' })
   @Post('login')
   logIn(@Body() body: LoginRequestDto) {
+    console.log(config().jwt.secret);
     return this.authService.jwtLogin(body);
   }
 

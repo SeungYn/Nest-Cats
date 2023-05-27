@@ -5,7 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import mongoose from 'mongoose';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
-import { config } from './common/util/config';
+import config from './common/util/config';
 import { CatsModule } from './cats/cats.module';
 import { AuthModule } from './auth/auth.module';
 
@@ -13,9 +13,10 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     //모듈 안에서 환경변수를 사용하려면 이렇게 해줘야함
     ConfigModule.forRoot({
+      isGlobal: true,
       load: [config],
     }),
-    MongooseModule.forRoot(process.env.MONGODB_URI, {
+    MongooseModule.forRoot(config().db.mongodbURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     }),

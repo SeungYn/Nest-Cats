@@ -8,7 +8,7 @@ function required(key: string, defaultValue: any | null = 123) {
   return value;
 }
 
-export const config = () => ({
+const config = () => ({
   db: {
     mongodbURI: required('MONGODB_URI'),
   },
@@ -16,4 +16,14 @@ export const config = () => ({
     port: parseInt(required('PORT')),
   },
   mode: required('MODE'),
+  swagger: {
+    user: required('SWAGGER_USER'),
+    password: required('SWAGGER_PASSWORD'),
+  },
+  jwt: {
+    secret: required('JWT_SECRET'),
+    expiresIn: required('JWT_EXPIRESIN'),
+  },
 });
+
+export default config;
