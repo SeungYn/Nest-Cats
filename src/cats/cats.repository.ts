@@ -37,4 +37,12 @@ export class CatsRepository {
 
     return cat;
   }
+
+  async findByIdAndUpdateImg(id: string, fileName: string) {
+    const cat = await this.catModel.findById(id);
+    cat.imgUrl = `http://localhost:8000/media/${fileName}`;
+    const newCat = await cat.save();
+    console.log('데이터 베이스에 저장 후: ', newCat);
+    return newCat;
+  }
 }
