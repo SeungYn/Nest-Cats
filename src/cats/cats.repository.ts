@@ -45,4 +45,8 @@ export class CatsRepository {
     console.log('데이터 베이스에 저장 후: ', newCat);
     return newCat;
   }
+
+  async findAll() {
+    return await this.catModel.find();
+  }
 }

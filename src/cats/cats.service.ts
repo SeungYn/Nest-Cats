@@ -39,4 +39,10 @@ export class CatsService {
     console.log(newCat);
     return newCat;
   }
+
+  async getAllCat() {
+    const cats = await this.catsRepository.findAll();
+
+    return cats;
+  }
 }
