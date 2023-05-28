@@ -20,7 +20,15 @@ export class CommentsController {
     @Param('id') id: string,
     @Body() body: CommentsCreateDto,
   ) {
-    console.log(body);
+    console.log(this.commentsService.createComment(id, body));
     return this.commentsService.createComment(id, body);
+  }
+
+  @ApiOperation({
+    summary: 'up likeCount',
+  })
+  @Post(':id')
+  async plusLike(@Param('id') id: string) {
+    return this.commentsService.plusLike(id);
   }
 }
