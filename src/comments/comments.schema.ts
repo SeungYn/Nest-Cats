@@ -13,7 +13,7 @@ export class Comments extends Document {
   @Prop({
     type: Types.ObjectId, // ObjectId 라는 타입 사용 사용자에게 보여질때는 string로 변환됨
     required: true,
-    ref: 'cats', // 몽고디비는 이렇게 조인을 해줌
+    ref: 'cats', // 몽고디비는 이렇게 연관관계 설정 해줌
   })
   author: Types.ObjectId;
 
@@ -32,6 +32,14 @@ export class Comments extends Document {
   @IsNumber()
   @IsNotEmpty()
   likeCount: number;
+
+  @ApiProperty({ description: '대상', required: true })
+  @Prop({
+    type: Types.ObjectId, // ObjectId 라는 타입 사용 사용자에게 보여질때는 string로 변환됨
+    required: true,
+    ref: 'cats', // 몽고디비는 이렇게 연관관계 설정 해줌
+  })
+  info: Types.ObjectId;
 }
 
 export const CommentsSchema = SchemaFactory.createForClass(Comments);
